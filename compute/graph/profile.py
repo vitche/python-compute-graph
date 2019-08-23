@@ -1,3 +1,5 @@
+from compute.graph.structure import Graph
+
 class ProfileGraph(Graph):
     def add(self, node):
         node = super().add(node)
