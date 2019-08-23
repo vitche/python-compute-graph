@@ -4,6 +4,8 @@ from graphviz import Source
 import graphviz
 from IPython.display import display
 
+from compute.graph.structure import Node
+
 class GraphvizNode(Node):
 
     def __traverse(self, graph, node):
