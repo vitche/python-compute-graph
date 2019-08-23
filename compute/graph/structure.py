@@ -22,6 +22,9 @@ class Graph:
 
     def first(self):
         return self.firstNode
+    
+    def previous(self):
+        return self.previousNode
 
     def write(self, data):
         self.firstNode.write(data)
