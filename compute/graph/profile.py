@@ -18,7 +18,8 @@ class ProfileNode(Node):
     def write(self, data):
         if None != data:
             for item in data:
-                if 'amount' in item and 'time' in item:
-                    self.delta["amount"] += item["amount"]
-                    self.delta["time"] += item["time"]
+                if isinstance(item, dict):
+                    if 'amount' in item and 'time' in item:
+                        self.delta["amount"] += item["amount"]
+                        self.delta["time"] += item["time"]
         self.arguments([self.delta])
