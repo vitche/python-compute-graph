@@ -4,7 +4,7 @@ from compute.graph.structure import Node
 class ProfileGraph(Graph):
     def add(self, node):
         node = super().add(node)
-        node.add(ProfilerNode())
+        node.add(ProfileNode())
         return node
 
 class ProfileNode(Node):
