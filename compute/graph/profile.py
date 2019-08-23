@@ -4,7 +4,7 @@ class ProfileGraph(Graph):
         node.add(ProfilerNode())
         return node
 
-class ProfilerNode(Node):
+class ProfileNode(Node):
     def write(self, data):
         if None != data:
             self.arguments(data)
