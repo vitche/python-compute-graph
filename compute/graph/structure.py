@@ -17,6 +17,10 @@ class Graph:
         self.nodes.append(node)
         return node
 
+    def attach(self, node):
+        self.nodes.append(node)
+        return node
+
     def connect(self, subgraph):
         self.add(subgraph.first())
 
