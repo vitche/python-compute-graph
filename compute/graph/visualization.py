@@ -5,6 +5,7 @@ import graphviz
 from IPython.display import display
 
 from compute.graph.structure import Node
+from compute.graph.profile import ProfileNode
 
 class GraphvizNode(Node):
 
