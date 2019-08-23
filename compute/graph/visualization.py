@@ -30,7 +30,10 @@ class GraphvizNode(Node):
             self.__traverse(graph, neighborNode)
             label = ""
             if None != delta:
-                label = str(delta["amount"]) + " (N), " + str(delta["time"]) + " (s)"
+                amountDeltaString = str(delta["amount"])
+                if 0 < delta["amount"]:
+                    amountDeltaString = "+" + amountDeltaString
+                label = amountDeltaString + " (N), " + str(delta["time"]) + " (s)"
             graph.edge(str(node), str(neighborNode), label = label)
 
     def process(self):
