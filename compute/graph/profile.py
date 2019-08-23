@@ -1,4 +1,5 @@
 from compute.graph.structure import Graph
+from compute.graph.structure import Node
 
 class ProfileGraph(Graph):
     def add(self, node):
