@@ -1,4 +1,4 @@
-from compute.graph.activation impot Activation
+from compute.graph.activation import Activation
 
 class Graph:
 
