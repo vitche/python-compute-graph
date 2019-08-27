@@ -71,7 +71,26 @@ class Node:
     
     def synapses(self):
         return self.__synapses
-        
+
+class SpreadNode(Node):
+    def process(self):
+        data = self.read()
+        synapses = self.synapses()
+        for synapse in synapses:
+            for item in data:
+                synapse.write([item])
+                synapse.node().activate()
+
+class SubgraphActivationNode(Node):
+    def __init__(self, subgraph):
+        super().__init__()
+        self.subgraph = subgraph
+        self.add(Synapse().add(subgraph.first()))
+    def process(self):
+        data = self.read()
+        self.subgraph.first().write(data)
+        Activation().iterate(self.subgraph.nodes)
+
 class Synapse:
 
     __node: None
