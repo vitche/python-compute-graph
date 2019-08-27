@@ -28,7 +28,15 @@ class Graph:
 
     def first(self):
         return self.firstNode
-    
+
+    def fork(self, node):
+        subgraph = self.__class__()
+        subgraph.add(node)
+        activationNode = SubgraphActivationNode(subgraph)
+        self.previous().add(Synapse().add(activationNode))
+        self.attach(activationNode)
+        return subgraph
+
     def previous(self):
         return self.previousNode
 
