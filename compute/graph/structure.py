@@ -1,3 +1,5 @@
+from compute.graph.activation impot Activation
+
 class Graph:
 
     def __init__(self):
