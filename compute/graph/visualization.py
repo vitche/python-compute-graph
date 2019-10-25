@@ -37,6 +37,7 @@ class GraphvizNode(Node):
             graph.edge(str(node), str(neighborNode), label = label)
 
     def process(self):
-        dot = Digraph()
+        # TODO: Investigate, whether this may be bad
+        dot = Digraph(strict=True)
         self.__traverse(dot, self)
         display(Source(dot))
