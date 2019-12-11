@@ -9,7 +9,14 @@ from compute.graph.profile import ProfileNode
 
 class GraphvizNode(Node):
 
+    __opened = []
+
     def __traverse(self, graph, node):
+
+        # Do not traverse the node twice
+        if node in self.__opened:
+            return
+        self.__opened.append(node)
 
         synapses = node.synapses()
 
@@ -37,6 +44,13 @@ class GraphvizNode(Node):
             graph.edge(str(node), str(neighborNode), label = label)
 
     def process(self):
+
         dot = Digraph()
+        self.__opened = []
         self.__traverse(dot, self)
-        display(Source(dot))
+        dot.format = 'png'
+        dot.render(str(self))
+
+        # The rendered graph is usually huge. 
+        # So, immediate displaying was disabled.
+        # display(Source(dot))
