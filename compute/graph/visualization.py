@@ -1,14 +1,13 @@
 from graphviz import Digraph
-from graphviz import Source
-
-import graphviz
-from IPython.display import display
+# from graphviz import Source
+# import graphviz
+# from IPython.display import display
 
 from compute.graph.structure import Node
 from compute.graph.profile import ProfileNode
 
-class GraphvizNode(Node):
 
+class GraphvizNode(Node):
     __opened = []
 
     def __traverse(self, graph, node):
@@ -23,25 +22,25 @@ class GraphvizNode(Node):
         # Extract deltas from profiler nodes if any
         delta = None
         for i in range(len(synapses)):
-            neighborNode = synapses[i].node()
-            if isinstance(neighborNode, ProfileNode):
-                deltas = neighborNode.read()
+            neighbor_node = synapses[i].node()
+            if isinstance(neighbor_node, ProfileNode):
+                deltas = neighbor_node.read()
                 if 0 < len(deltas):
                     delta = deltas[0]
 
         for i in range(len(synapses)):
-            neighborNode = synapses[i].node()
-            if isinstance(neighborNode, ProfileNode):
+            neighbor_node = synapses[i].node()
+            if isinstance(neighbor_node, ProfileNode):
                 continue
-            graph.node(str(neighborNode))
-            self.__traverse(graph, neighborNode)
+            graph.node(str(neighbor_node))
+            self.__traverse(graph, neighbor_node)
             label = ""
-            if None != delta:
-                amountDeltaString = str(delta["amount"])
+            if delta is not None:
+                amount_delta_string = str(delta["amount"])
                 if 0 < delta["amount"]:
-                    amountDeltaString = "+" + amountDeltaString
-                label = amountDeltaString + " (N), " + str(delta["time"]) + " (s)"
-            graph.edge(str(node), str(neighborNode), label = label)
+                    amount_delta_string = "+" + amount_delta_string
+                label = amount_delta_string + " (N), " + str(delta["time"]) + " (s)"
+            graph.edge(str(node), str(neighbor_node), label=label)
 
     def process(self):
 
