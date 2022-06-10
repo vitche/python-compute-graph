@@ -1,4 +1,4 @@
-from compute.graph.structure import Node, Graph
+from compute.graph.structure import Node
 from compute.graph.profile import ProfileGraph
 from compute.graph.visualization import GraphvizNode
 
