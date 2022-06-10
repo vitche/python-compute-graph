@@ -1,5 +1,6 @@
 from compute.graph.activation import Activation
 
+
 class Graph:
 
     def __init__(self):
@@ -9,10 +10,10 @@ class Graph:
 
     def add(self, node):
 
-        if None == self.firstNode:
+        if self.firstNode is None:
             self.firstNode = node
 
-        if None != self.previousNode:
+        if self.previousNode is not None:
             self.previousNode.add(Synapse().add(node))
 
         self.previousNode = node
@@ -32,9 +33,9 @@ class Graph:
     def fork(self, node):
         subgraph = self.__class__()
         subgraph.add(node)
-        activationNode = SubgraphActivationNode(subgraph)
-        self.previous().add(Synapse().add(activationNode))
-        self.attach(activationNode)
+        activation_node = SubgraphActivationNode(subgraph)
+        self.previous().add(Synapse().add(activation_node))
+        self.attach(activation_node)
         return subgraph
 
     def previous(self):
@@ -42,6 +43,7 @@ class Graph:
 
     def write(self, data):
         self.firstNode.write(data)
+
 
 class Node:
 
@@ -62,7 +64,7 @@ class Node:
         return result
 
     def write(self, data):
-        if None != data:
+        if data is not None:
             self.__arguments += data
 
     def initialize(self):
@@ -71,7 +73,7 @@ class Node:
     def activate(self):
         self.process()
         data = self.read()
-        if None != data:
+        if data is not None:
             for i in range(len(self.__synapses)):
                 synapse = self.__synapses[i]
                 synapse.write(data)
@@ -82,6 +84,7 @@ class Node:
     def synapses(self):
         return self.__synapses
 
+
 class SpreadNode(Node):
     def process(self):
         data = self.read()
@@ -91,15 +94,18 @@ class SpreadNode(Node):
                 synapse.write([item])
                 synapse.node().activate()
 
+
 class SubgraphActivationNode(Node):
     def __init__(self, subgraph):
         super().__init__()
         self.subgraph = subgraph
         self.add(Synapse().add(subgraph.first()))
+
     def process(self):
         data = self.read()
         self.subgraph.first().write(data)
         Activation().iterate(self.subgraph.nodes)
+
 
 class Synapse:
 
